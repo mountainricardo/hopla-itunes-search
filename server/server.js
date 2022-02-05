@@ -1,4 +1,3 @@
-// server/server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,7 +11,6 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // listen on the port
-// app.listen(port);
 app.listen(port, function() {
   console.log(`Example app listening on port ${port}!`)
 });
