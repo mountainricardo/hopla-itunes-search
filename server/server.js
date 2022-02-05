@@ -12,6 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // listen on the port
 app.listen(port, function() {
-  console.log(`Example app listening on port ${port}!`)
+  console.log(`Hopla iTunes music search server listening on port ${port}!`)
 });
 
