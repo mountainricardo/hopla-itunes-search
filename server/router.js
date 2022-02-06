@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -9,8 +8,8 @@ router.get('/', async (req, res) => {
 
 })
 
-const itunesMusic = require('./itunes-service')
+const ItunesMusicList = require('./itunes-service')
 
-router.use('/music', itunesMusic);
+router.use('/music', ItunesMusicList);
 
 module.exports = router;

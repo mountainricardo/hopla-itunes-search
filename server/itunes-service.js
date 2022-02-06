@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ const removeDuplicates = ((array) => {
   },[]);
 });
 
-router.get('/albums', async (req, res, next) => {
+router.get('/albums', cors(), async (req, res, next) => {
   const url = new URL(`${ BASE_URL }/${queryType}/${req.url}`)
   const queryTerm = url.searchParams.get('term') ? `?term=${url.searchParams.get('term')}` : '';
   const queryAlbum = url.searchParams.get('entity') ? `&entity=${ url.searchParams.get('entity') }` : '';

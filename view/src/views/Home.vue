@@ -1,15 +1,16 @@
 <template>
-  <hello-world />
+  <!-- <hello-world /> -->
+  <music-search />
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import MusicSearch from '../components/MusicSearch.vue';
 
 export default {
   name: "Home",
 
   components: {
-    HelloWorld,
+    MusicSearch,
   },
 };
 </script>
