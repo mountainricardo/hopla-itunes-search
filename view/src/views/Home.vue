@@ -43,7 +43,6 @@ export default {
   }),
   methods: {
     ...mapActions(["getAlbums"]),
-    // handleSubmit() {
     handleSubmit: async function () {
       this.submitted = true;
       const { artist } = this;
@@ -53,7 +52,6 @@ export default {
         this.getAlbums(fullName);
         await this.$nextTick()
         this.$router.push({ name: "Music", params: { artist: fullName } });
-        // this.$router.push({ name: "Music" });
       }
     },
   },
