@@ -1,15 +1,20 @@
 <template>
   <v-container fluid>
+    <!-- <p>{{ artist }}</p>
+    <ul v-if="albums && albums.length > 0">
+      <li v-for="(album, index) in albums" :key="index">{{album.collectionName}}</li>
+    </ul> -->
+      <!-- :item-key="item.releaseDate" -->
     <v-data-iterator
-      :items="albums.length > 0 ? albums : []"
-      item-key="collectionId"
+      v-if="albums && albums.length > 0"
+      :items="albums"
       hide-default-footer
     >
-      <template v-slot:default="items">
+      <template v-slot:default="props">
         <v-row>
           <v-col
-            v-for="item in items"
-            :key="item.collectionId"
+            :key="item.releaseDate"
+            v-for="item in props.items"
             cols="12"
             sm="6"
             md="4"
@@ -29,8 +34,10 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 // import ItunesMusicList from "../components/ItunesMusicList.vue";
-import { itunesMusicService } from "../services";
+// import { itunesMusicService } from "../services";
+// import { mapActions } from 'vuex'
 
 export default {
   name: "Music",
@@ -39,7 +46,7 @@ export default {
   // },
   data() {
     return {
-      albums: [],
+      // albums: [],
     };
   },
   computed: {
@@ -48,19 +55,33 @@ export default {
         return this.$route.params.artist;
       },
     },
+    albums: {
+      get: function () {
+        return this.$store.state.albums;
+      },
+      set: function (newValue) {
+        // this.$store.state.commit("setAlbums", newValue);
+        this.getAlbums(newValue);
+      },
+    },
   },
+
+  mounted() {},
   created() {
-    this.getAlbumsData();
+    // this.getAlbumsData();
+    // this.getAlbums( this.$route.params.artist )
+    // this.albums = this.$store.state.albums;
   },
   methods: {
-    async getAlbumsData() {
-      itunesMusicService.albumsFromItunes(this.$route.params.artist).then(
-        ((albums) => {
-          console.log("albums", albums);
-          this.$set(this, "albums", albums);
-        }).bind(this)
-      );
-    },
+    ...mapActions(["getAlbums"]),
+    // async getAlbumsData() {
+    //   itunesMusicService.albumsFromItunes(this.$route.params.artist).then(
+    //     ((albums) => {
+    //       console.log("albums", albums);
+    //       this.$set(this, "albums", albums);
+    //     }).bind(this)
+    //   );
+    // },
   },
 };
 </script>
