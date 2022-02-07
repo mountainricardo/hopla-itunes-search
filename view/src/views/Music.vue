@@ -20,7 +20,13 @@
           ></v-text-field>
           <template v-if="$vuetify.breakpoint.mdAndUp">
             <v-spacer></v-spacer>
-            <v-btn large depressed color="blue" :value="false" @click="backToSearch">
+            <v-btn
+              large
+              depressed
+              color="blue"
+              :value="false"
+              @click="backToSearch"
+            >
               <v-icon class="mr-2">mdi-arrow-u-right-bottom</v-icon>
               New Search
             </v-btn>
@@ -40,9 +46,9 @@
           >
             <v-card class="pt-2 pb-2 d-flex">
               <v-img width="100" :src="item.artworkUrl100" class="ml-2"></v-img>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h6 mb-1" style="text-overflow: ellipsis;">
+              <v-list-item three-line style="max-width: 70%">
+                <v-list-item-content style="max-width: 120%">
+                  <v-list-item-title class="mb-1">
                     {{ item.collectionName }}
                   </v-list-item-title>
                   <v-list-item-subtitle>{{
@@ -78,6 +84,7 @@
               <v-list-item
                 v-for="(number, index) in itemsPerPageArray"
                 :key="index"
+                style="max-width: 85%"
                 @click="updateItemsPerPage(number)"
               >
                 <v-list-item-title>{{ number }}</v-list-item-title>
@@ -151,8 +158,8 @@ export default {
       this.itemsPerPage = number;
     },
     backToSearch() {
-      this.$router.push({ name: "Home"});
-    }
+      this.$router.push({ name: "Home" });
+    },
   },
 };
 </script>

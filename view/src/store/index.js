@@ -21,9 +21,9 @@ export default new Vuex.Store({
       try {
         // 
         const albums = await itunesMusicService.albumsFromItunes(artist);
-        commit('setAlbums', albums);
+        commit("setAlbums", albums);
       } catch (error) {
-        console.error('getAlbums', error);
+        console.error("getAlbums", error);
       }
     }
   },

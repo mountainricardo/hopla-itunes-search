@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions } from "vuex";
 export default {
   name: "Home",
 
@@ -50,11 +50,10 @@ export default {
         const fullName = artist.split(" ").join("+");
         console.log("Artist Name", fullName);
         this.getAlbums(fullName);
-        await this.$nextTick()
+        await this.$nextTick();
         this.$router.push({ name: "Music", params: { artist: fullName } });
       }
     },
   },
-
 };
 </script>
