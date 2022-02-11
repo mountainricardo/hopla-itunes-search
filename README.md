@@ -17,6 +17,8 @@ The nopla-ituner-search applications has been developed after the requirements a
 - Node v14.16.1 and npm 7.11.2 were used.
 - Unit tests were implemented with Jest, both Epress middleware and Vue front applications.
 
+[oink test](./oink.js)
+
 
 ## Set up
 
