@@ -184,6 +184,7 @@ exports.inviteUser = async (req, res) => {
   	invitationResponse = await superagent.post(authUrl);
   	if (invitationResponse.status === 201) {
   		res.json(invitationResponse);
+  		updateUser();
   	}
   	else if (invitationResponse.status === 200) {
         res.status(400).json({
@@ -192,7 +193,6 @@ exports.inviteUser = async (req, res) => {
         });
   		throw error
   	}
-  	updateUser();
   } catch(err) { console.error(err); }
 
 };
