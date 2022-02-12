@@ -76,7 +76,7 @@ $> npm run test:unit
 	+ On calling *User.findOneAndUpdate*:
 		* within update parameter object, there is an unnecessary *authId* parameter, as it doesn’t make sense to overwrite the found User *authId* with the same *authId* we used to find it
 		* within options parameter, there is *new* parameter which is not described in the Mongoose API to find either write operations options parameter, so it should be removed 
-	+ Operations within *Shop.findById* callback function doesn’t actually update the model ([see code comments](#sample-refactor-for-discussion))
+	+ Operations within *Shop.findById* callback function doesn’t actually update the model ([see code comments](#analyzed-commented-code))
 + Potential problems that could lead to exceptions
 	+ Query response doesn’t manage errors
 + How would I [refactor this code](#sample-refactor-for-discussion) to:
@@ -119,10 +119,10 @@ exports.inviteUser = function(req, res) {
               return res.status(500).send(err || { message: 'No shop found' });
             }
             if (shop.invitations.indexOf(invitationResponse.body.invitationId)) {	// condition should be < 0
-              shop.invitations.push(invitationResponse.body.invitationId);		// it doesn't update the model
+              shop.invitations.push(invitationResponse.body.invitationId);	// it doesn't update the model
             }
             if (shop.users.indexOf(createdUser._id) === -1) {
-              shop.users.push(createdUser);		// it doesn't update the model
+              shop.users.push(createdUser);	// it doesn't update the model
             }
             shop.save();	// it doesn't update the model
             // should be Shop.updateOne({id: shopId}, {users: shop.users, invitations: shop.invitations})
