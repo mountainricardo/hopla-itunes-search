@@ -1,1 +1,0 @@
-const oink = 'oink';
