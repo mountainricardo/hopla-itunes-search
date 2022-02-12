@@ -24,10 +24,10 @@ The nopla-itunes-search application has been developed after the requirements as
 
 + [Apple Services Performance Partners](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/)
 + [Express 4.17.2](https://expressjs.com/)
-	* [cors](https://www.npmjs.com/package/cors)
-	* [axios](https://www.npmjs.com/package/axios)
+  * [cors](https://www.npmjs.com/package/cors)
+  * [axios](https://www.npmjs.com/package/axios)
 + [Vue.js 2.x](https://v2.vuejs.org/v2/guide/)
-	* [Vuetify v2.6.3](https://vuetifyjs.com/en/introduction/why-vuetify/)
+  * [Vuetify v2.6.3](https://vuetifyjs.com/en/introduction/why-vuetify/)
 + [Jest](https://jestjs.io/es-ES/docs/testing-frameworks) 
 
 #### Reference samples
@@ -73,24 +73,24 @@ $> npm run test:unit
 ---
 
 + What do I think is wrong with the code:
-	+ On calling *User.findOneAndUpdate*:
-		* within update parameter object, there is an unnecessary *authId* parameter, as it doesn’t make sense to overwrite the found User *authId* with the same *authId* we used to find it
-		* within options parameter, there is *new* parameter which is not described in the Mongoose API to find either write operations options parameter, so it should be removed 
-	+ Operations within *Shop.findById* callback function doesn’t actually update the model ([see code comments](#analyzed-commented-code))
+  + On calling *User.findOneAndUpdate*:
+    * within update parameter object, there is an unnecessary *authId* parameter, as it doesn’t make sense to overwrite the found User *authId* with the same *authId* we used to find it
+    * within options parameter, there is *new* parameter which is not described in the Mongoose API to find either write operations options parameter, so it should be removed 
+  + Operations within *Shop.findById* callback function doesn’t actually update the model ([see code comments](#analyzed-commented-code))
 + Potential problems that could lead to exceptions
-	+ Query response doesn’t manage errors
+  + Query response doesn’t manage errors
 + How would I [refactor this code](#sample-refactor-for-discussion) to:
-	+ Make it easier to read
-		* Abstract callbacks to organize code
-	+ Increase code reusability
-		* Abstract callbacks to organize code
-	+ Improve the stability of the system
-		* Implement error management
-	+ Improve the testability of the code
-		* Abstraction of callback functions will allow better testing of each one
-	+ How might you use the latest JavaScript features to refactor the code?
-		* Use of async/await asynchronous behaviour.
-		* Destructuring objects to break references and modify  safely and securely.
+  + Make it easier to read
+    * Abstract callbacks to organize code
+  + Increase code reusability
+    * Abstract callbacks to organize code
+  + Improve the stability of the system
+    * Implement error management
+  + Improve the testability of the code
+    * Abstraction of callback functions will allow better testing of each one
+  + How might you use the latest JavaScript features to refactor the code?
+    * Use of async/await asynchronous behaviour.
+    * Destructuring objects to break references and modify  safely and securely.
 
 
 ### Analyzed commented code:
@@ -108,23 +108,23 @@ exports.inviteUser = function(req, res) {
         User.findOneAndUpdate({
           authId: invitationResponse.body.authId
         }, {
-          authId: invitationResponse.body.authId,	// What for?
+          authId: invitationResponse.body.authId, // What for?
           email: invitationBody.email
         }, {
           upsert: true,
-          new: true,	// param not described in Mongoose API
+          new: true,  // param not described in Mongoose API
         }, function(err, createdUser) {
           Shop.findById(shopId).exec(function(err, shop) {
             if (err || !shop) {
               return res.status(500).send(err || { message: 'No shop found' });
             }
-            if (shop.invitations.indexOf(invitationResponse.body.invitationId)) {	// condition should be < 0
-              shop.invitations.push(invitationResponse.body.invitationId);	// it doesn't update the model
+            if (shop.invitations.indexOf(invitationResponse.body.invitationId)) { // condition should be < 0
+              shop.invitations.push(invitationResponse.body.invitationId);  // it doesn't update the model
             }
             if (shop.users.indexOf(createdUser._id) === -1) {
-              shop.users.push(createdUser);	// it doesn't update the model
+              shop.users.push(createdUser); // it doesn't update the model
             }
-            shop.save();	// it doesn't update the model
+            shop.save();  // it doesn't update the model
             // should be Shop.updateOne({id: shopId}, {users: shop.users, invitations: shop.invitations})
           });
         });
@@ -151,48 +151,48 @@ exports.inviteUser = async (req, res) => {
   let createdUser;
 
   const updateUser = async () => {
-  	try {
-  	createdUser = await User.findOneAndUpdate(
-	  		{authId: invitationResponse.body.authId},
-	  		{email: invitationBody.email},
-	  		{upsert: true},
-	  		updateShop
-  		);
-  	} catch(err){
-  		console.error(error)
-  	}
+    try {
+    createdUser = await User.findOneAndUpdate(
+        {authId: invitationResponse.body.authId},
+        {email: invitationBody.email},
+        {upsert: true},
+        updateShop
+      );
+    } catch(err){
+      console.error(error)
+    }
   }
 
   const updateShop = async () => {
-  	let shop;
-  	try {
-  		shop = await Shop.findById(shopId);
-  		const { invitations, users } = shop;
-  		if(invitations.indexOf(invitationResponse.body.invitationId) < 0) {
-  			invitations.push(invitationResponse.body.invitationId)
-  		}
-  		if(users.indexOf(createdUser._id) === -1) {
-  			users.push(createdUser);
-  		}
-  		Shop.updateOne({id: shopId}, {users: users, invitations: invitations})
-  	} catch(err) {
-  		console.error(err);
-  	}
+    let shop;
+    try {
+      shop = await Shop.findById(shopId);
+      const { invitations, users } = shop;
+      if(invitations.indexOf(invitationResponse.body.invitationId) < 0) {
+        invitations.push(invitationResponse.body.invitationId)
+      }
+      if(users.indexOf(createdUser._id) === -1) {
+        users.push(createdUser);
+      }
+      Shop.updateOne({id: shopId}, {users: users, invitations: invitations})
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   try {
-  	invitationResponse = await superagent.post(authUrl);
-  	if (invitationResponse.status === 201) {
-  		res.json(invitationResponse);
-  		updateUser();
-  	}
-  	else if (invitationResponse.status === 200) {
+    invitationResponse = await superagent.post(authUrl);
+    if (invitationResponse.status === 201) {
+      res.json(invitationResponse);
+      updateUser();
+    }
+    else if (invitationResponse.status === 200) {
         res.status(400).json({
           error: true,
           message: 'User already invited to this shop'
         });
-  		throw error
-  	}
+      throw error
+    }
   } catch(err) { console.error(err); }
 
 };
