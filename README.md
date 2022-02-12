@@ -76,7 +76,7 @@ $> npm run test:unit
 	+ On calling *User.findOneAndUpdate*:
 		* within update parameter object, there is an unnecessary *authId* parameter, as it doesn’t make sense to overwrite the found User *authId* with the same *authId* we used to find it
 		* within options parameter, there is *new* parameter which is not described in the Mongoose API to find either write operations options parameter, so it should be removed 
-	+ Operations within *Shop.findById* callback function doesn’t actually update the model (see code comments)
+	+ Operations within *Shop.findById* callback function doesn’t actually update the model ([see code comments](#sample-refactor-for-discussion))
 + Potential problems that could lead to exceptions
 	+ Query response doesn’t manage errors
 + How would I [refactor this code](#sample-refactor-for-discussion) to:
