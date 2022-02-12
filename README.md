@@ -112,19 +112,19 @@ exports.inviteUser = function(req, res) {
           email: invitationBody.email
         }, {
           upsert: true,
-          new: true,								// param not described in Mongoose API
+          new: true,	// param not described in Mongoose API
         }, function(err, createdUser) {
           Shop.findById(shopId).exec(function(err, shop) {
             if (err || !shop) {
               return res.status(500).send(err || { message: 'No shop found' });
             }
             if (shop.invitations.indexOf(invitationResponse.body.invitationId)) {	// condition should be < 0
-              shop.invitations.push(invitationResponse.body.invitationId);			// it doesn't update the model
+              shop.invitations.push(invitationResponse.body.invitationId);		// it doesn't update the model
             }
             if (shop.users.indexOf(createdUser._id) === -1) {
-              shop.users.push(createdUser);						// it doesn't update the model
+              shop.users.push(createdUser);		// it doesn't update the model
             }
-            shop.save();										// it doesn't update the model
+            shop.save();	// it doesn't update the model
             // should be Shop.updateOne({id: shopId}, {users: shop.users, invitations: shop.invitations})
           });
         });
