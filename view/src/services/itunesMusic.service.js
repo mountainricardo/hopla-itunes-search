@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const itunesMusicService = {
-  albumsFromItunes
+  albumsFromItunes,
 };
 
 async function albumsFromItunes(artist) {
