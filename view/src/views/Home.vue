@@ -18,10 +18,11 @@
             placeholder="Artist Name"
             :class="{ 'is-invalid': submitted && !artist }"
             outlined
+            data-test="artistText"
           >
           </v-text-field>
 
-          <v-btn color="primary" type="submit" :disabled="!artist">
+          <v-btn color="primary" type="submit" :disabled="!artist" data-test="searchButton">
             <v-icon color="white">mdi-magnify</v-icon>
             <span class="ml-3">Search</span>
           </v-btn>

@@ -16,29 +16,27 @@ describe("Home", () => {
       {
         localVue,
         vuetify,
-        // attachToDocument: true
       }
     )
 
   })
   
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBeTruthy()
-  // })
-
   it('has a heading', () => {
-    expect(wrapper.findComponent('h2')).toEqual({"selector": "h2"})
-    // expect(wrapper.contains('h2')).toBe(true)
+    expect(wrapper.find('h2')).toEqual({"selector": "h2"})
   })
 
   it('has a button', () => {
     expect(wrapper.findComponent('v-btn')).toEqual({"selector": "v-btn"})
   })
 
-  // it('submits form when a button is clicked', () => {
-  //   // const wrapper = mountFunction()
-  //   wrapper.find('v-btn').trigger('submit')
-  //   expect(wrapper.vm.submitted).toBe(true)
-  // })  
+  it('Enter text and check the value of artist', ()=>{
+    var textInput = wrapper.find('[data-test="artistText"]')
+    textInput.setValue('oink');
+    expect(wrapper.vm.artist).toBe('oink')
+  })
 
+  it('test click event emitted from search Button', () =>{
+    wrapper.find('[data-test="searchButton"]').vm.$emit('click')
+    expect(wrapper.find('[data-test="searchButton"]').emitted().click).toBeTruthy()
+  })
 });
