@@ -34,7 +34,7 @@ The nopla-itunes-search application has been developed after the requirements as
 
 + [NodeJS proxy api for iTunes](https://medium.com/nerd-for-tech/nodejs-proxy-api-for-itunes-c15c2c09ed1c)
 + [How to test Express.js with Jest and Supertest](https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/)
-+ [Write the first Vue.js Component Unit Test in Jest](https://alexjover.com/blog/write-the-first-vue-js-component-unit-test-in-jest/)
++ [Vue Test Utils](https://vue-test-utils.vuejs.org/)
 
 ### Set up
 
