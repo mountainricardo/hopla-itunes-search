@@ -18,7 +18,8 @@ The nopla-itunes-search application has been developed after the requirements as
 - [**Vue.js 2.x**](https://v2.vuejs.org/) front application which querys the artist name to the Express API and shows up to 200 found artist's albums result as a paginated and filterable responsive grid. UI components has been implemented with [Vuetify UI Library v2.6.3](https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides).  
   It serves on [localhost:8080](http://localhost:8080/)
 - Node v14.16.1 and npm 7.11.2 were used.
-- Unit tests were implemented with Jest, both Epress middleware and Vue front applications.
+- Some unit tests were implemented with Jest and Vue front application to test Vuetify UI components integration, but they are far from exhaustive and lack testing for Vuex and routing.
+- No testing was implemented for Express API server
 
 #### Documentation
 
@@ -33,8 +34,7 @@ The nopla-itunes-search application has been developed after the requirements as
 #### Reference samples
 
 + [NodeJS proxy api for iTunes](https://medium.com/nerd-for-tech/nodejs-proxy-api-for-itunes-c15c2c09ed1c)
-+ [How to test Express.js with Jest and Supertest](https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/)
-+ [Vue Test Utils](https://vue-test-utils.vuejs.org/)
+
 
 ### Set up
 
